@@ -18,11 +18,11 @@ WITH FindingFactorsOfNumber AS
 		SELECT	 CAST(Num%(Factor - 1) AS BIGINT) AS Div
 				,CAST(Factor - 1 AS BIGINT) AS Factor
 				,Num AS Num
-		FROM PrimeFact
+		FROM FindingFactorsOfNumber
 		WHERE Factor > 2 
 )
 SELECT * INTO #Temp
-FROM PrimeFact
+FROM FindingFactorsOfNumber
 WHERE Div = 0
 OPTION (MAXRECURSION 0);
 
@@ -38,7 +38,7 @@ WITH FindingFactorsOfFactors AS
 	CROSS JOIN #Temp T2
 )
 SELECT TOP 1 Factor2 AS [Largest_Prime_Factor]
-FROM FactOfFact
+FROM FindingFactorsOfFactors
 WHERE Div <> 0
 OR Div IS NULL
 GROUP BY Factor2
